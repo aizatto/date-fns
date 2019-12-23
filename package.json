@@ -1,0 +1,25 @@
+{
+  "name": "@aizatto/date-fns",
+  "version": "0.0.1",
+  "main": "build/fns.js",
+  "author": "Aizat Faiz",
+  "license": "MIT",
+  "repository": "https://www.github.com/aizatto/date-fns",
+  "dependencies": {
+    "date-fns": "^2"
+  },
+  "scripts": {
+    "build": "yarn run tsc",
+    "prepublish": "yarn build"
+  },
+  "devDependencies": {
+    "husky": "*",
+    "typescript": "*"
+  },
+  "peerDependencies": {},
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn run tsc"
+    }
+  }
+}
