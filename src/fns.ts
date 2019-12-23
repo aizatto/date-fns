@@ -17,10 +17,14 @@ export function mergeIntervals(unmergedIntervals: DateBlock[]): DateBlock[] {
   for (let i = 1; i < unmergedIntervals.length; i++) {
     const newInterval = unmergedIntervals[i];
 
-    const overlap = dateFns.areIntervalsOverlapping(
+    let overlap = dateFns.areIntervalsOverlapping(
       currentInterval,
       newInterval,
     );
+
+    if (!overlap) {
+      overlap = (newInterval.start.getTime() - currentInterval.end.getTime()) === 0;
+    }
 
     if (overlap) {
       currentInterval.start = dateFns.isBefore(currentInterval.start, newInterval.start)
@@ -84,4 +88,12 @@ export function oppositeIntervals(
   }
 
   return newIntervals;
+}
+
+export function intervalsTotal(
+  intervals: DateBlock[]
+): number {
+  return intervals.reduce((accumulator, interval) => {
+    return accumulator + interval.end.getTime() - interval.start.getTime();
+  }, 0)
 }

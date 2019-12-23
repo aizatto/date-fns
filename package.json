@@ -10,7 +10,7 @@
   },
   "scripts": {
     "build": "yarn run tsc",
-    "prepublish": "yarn build"
+    "prepare": "yarn build"
   },
   "devDependencies": {
     "husky": "*",

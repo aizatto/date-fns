@@ -10,6 +10,9 @@ function mergeIntervals(unmergedIntervals) {
     for (var i = 1; i < unmergedIntervals.length; i++) {
         var newInterval = unmergedIntervals[i];
         var overlap = dateFns.areIntervalsOverlapping(currentInterval, newInterval);
+        if (!overlap) {
+            overlap = (newInterval.start.getTime() - currentInterval.end.getTime()) === 0;
+        }
         if (overlap) {
             currentInterval.start = dateFns.isBefore(currentInterval.start, newInterval.start)
                 ? currentInterval.start
@@ -65,4 +68,10 @@ function oppositeIntervals(range, intervals) {
     return newIntervals;
 }
 exports.oppositeIntervals = oppositeIntervals;
+function intervalsTotal(intervals) {
+    return intervals.reduce(function (accumulator, interval) {
+        return accumulator + interval.end.getTime() - interval.start.getTime();
+    }, 0);
+}
+exports.intervalsTotal = intervalsTotal;
 //# sourceMappingURL=fns.js.map
